@@ -8,14 +8,15 @@
  * Plugin URI: https://github.com/...
  */
 
-//Admin
 $username = $_SERVER['PHP_AUTH_USER'];
 $password = $_SERVER['PHP_AUTH_PW'];
-error_log("dagger: $username:$password");
+
 
 function og_graph_preload_fn($post_id) {
     error_log("dagger: save post hook $post_id");
-
+    error_log("dagger: $username:$password");
+    $a = is_admin();
+    error_log("dagger: $a");
     $user = wp_authenticate( $username, $password );
     if ( is_wp_error( $user ) ) {
         error_log("dagger: AUTH ERROR");
