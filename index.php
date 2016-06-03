@@ -13,7 +13,7 @@ $username = $_SERVER['PHP_AUTH_USER'];
 $password = $_SERVER['PHP_AUTH_PW'];
 error_log("dagger: $username:$password");
 
-function webdados_fb_open_graph_add_posts_options_box_save($post_id) {
+function og_graph_preload_fn($post_id) {
     error_log("dagger: save post hook $post_id");
 
     $save=true;
@@ -69,4 +69,4 @@ function webdados_fb_open_graph_add_posts_options_box_save($post_id) {
     return $post_id;
 
 }
-add_action('save_post', 'webdados_fb_open_graph_add_posts_options_box_save');
+add_action('save_post', 'og_graph_preload_fn');
