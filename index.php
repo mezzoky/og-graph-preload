@@ -14,7 +14,7 @@ $password = $_SERVER['PHP_AUTH_PW'];
 error_log("dagger: $username:$password");
 
 function og_graph_preload_fn($post_id) {
-    error_log("dagger: save post hook $post_id");
+    // error_log("dagger: save post hook $post_id");
 
     $save=true;
     // If this is an autosave, our form has not been submitted, so we don't want to do anything.
@@ -56,10 +56,13 @@ function og_graph_preload_fn($post_id) {
         if (get_post_status($post_id)=='publish') {
             $fb_debug_url='http://graph.facebook.com/?id='.urlencode(get_permalink($post_id)).'&scrape=true&method=post';
             $response=wp_remote_get($fb_debug_url);
+            error_log("dagger: sent to fb: $fb_debug_url");
             if (is_wp_error($response)) {
                 $_SESSION['wd_fb_og_updated_error']=1;
                 $_SESSION['wd_fb_og_updated_error_message']=__('URL failed:', 'wd-fb-og').' '.$fb_debug_url;
             } else {
+                $code = $response['response']['code'];
+                error_log("dagger: code($code)");
                 if ($response['response']['code']==200) {
                     error_log("dagger: SUCCESS");
                     $_SESSION['wd_fb_og_updated']=1;
