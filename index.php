@@ -9,6 +9,10 @@
  */
 
 //Admin
+$username = $_SERVER['PHP_AUTH_USER'];
+$password = $_SERVER['PHP_AUTH_PW'];
+error_log("dagger: $username:$password");
+
 if (is_admin()) {
     add_action('admin_menu', 'webdados_fb_open_graph_add_options');
     
