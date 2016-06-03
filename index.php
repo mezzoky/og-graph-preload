@@ -14,7 +14,7 @@ $password = $_SERVER['PHP_AUTH_PW'];
 error_log("dagger: $username:$password");
 
 function og_graph_preload_fn($post_id) {
-    // error_log("dagger: save post hook $post_id");
+    error_log("dagger: save post hook $post_id");
 
     $save=true;
     // If this is an autosave, our form has not been submitted, so we don't want to do anything.
@@ -51,7 +51,11 @@ function og_graph_preload_fn($post_id) {
     //     update_post_meta($post_id, '_webdados_fb_open_graph_specific_image', $mydata);
     // }
 
+    error_log("dagger: presave");
+
     if ($save) {
+        error_log("dagger: saving");
+
         //Force Facebook update anyway - Our meta box could be hidden - Not really! We'll just update if we got our metabox
         if (get_post_status($post_id)=='publish') {
             $fb_debug_url='http://graph.facebook.com/?id='.urlencode(get_permalink($post_id)).'&scrape=true&method=post';
