@@ -15,36 +15,33 @@ error_log("dagger: $username:$password");
 
 function og_graph_preload_fn($post_id) {
     error_log("dagger: save post hook $post_id");
-    error_log("dagger: testing");
 
     $save=true;
-    error_log("dagger: testing 2");
     // If this is an autosave, our form has not been submitted, so we don't want to do anything.
     // if ( (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) || empty($_POST['post_type']))
     //     error_log("dagger: DOING_AUTOSAVE");
     //     return $post_id;
-    error_log("dagger: testing 3");
 
     // If the post is not publicly_queryable (or a page) this doesn't make sense
-    $post_type=get_post_type_object(get_post_type($post_id));
-    if ($post_type->publicly_queryable || $post_type->name=='page') {
-        //OK - Go on
-    } else {
-        //Not publicly_queryable (or page) -> Go away
-        error_log("dagger: Not publicly_queryable (or page)");
-        return $post_id;
-    }
+    // $post_type=get_post_type_object(get_post_type($post_id));
+    // if ($post_type->publicly_queryable || $post_type->name=='page') {
+    //     //OK - Go on
+    // } else {
+    //     //Not publicly_queryable (or page) -> Go away
+    //     error_log("dagger: Not publicly_queryable (or page)");
+    //     return $post_id;
+    // }
 
     // Check the user's permissions.
-    if ('page' == $_POST['post_type']) {
-        if (!current_user_can('edit_page', $post_id))
-            $save=false;
-            error_log("dagger: edit page false");
-    } else {
-        if (!current_user_can('edit_post', $post_id))
-            error_log("dagger: edit post false");
-            $save=false;
-    }
+    // if ('page' == $_POST['post_type']) {
+    //     if (!current_user_can('edit_page', $post_id))
+    //         $save=false;
+    //         error_log("dagger: edit page false");
+    // } else {
+    //     if (!current_user_can('edit_post', $post_id))
+    //         error_log("dagger: edit post false");
+    //         $save=false;
+    // }
 
     // if ($save) {
     //     /* OK, its safe for us to save the data now. */
@@ -54,7 +51,7 @@ function og_graph_preload_fn($post_id) {
     //     update_post_meta($post_id, '_webdados_fb_open_graph_specific_image', $mydata);
     // }
 
-    error_log("dagger: presave");
+    error_log("dagger: presave $save");
 
     if ($save) {
         error_log("dagger: saving");
