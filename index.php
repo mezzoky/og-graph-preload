@@ -19,6 +19,7 @@ function og_graph_preload_fn($post_id) {
     $save=true;
     // If this is an autosave, our form has not been submitted, so we don't want to do anything.
     if ( (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) || empty($_POST['post_type']))
+        error_log("dagger: DOING_AUTOSAVE");
         return $post_id;
 
     // If the post is not publicly_queryable (or a page) this doesn't make sense
@@ -27,6 +28,7 @@ function og_graph_preload_fn($post_id) {
         //OK - Go on
     } else {
         //Not publicly_queryable (or page) -> Go away
+        error_log("dagger: Not publicly_queryable (or page)");
         return $post_id;
     }
 
